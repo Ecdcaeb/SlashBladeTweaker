@@ -1,0 +1,77 @@
+buildscript {
+    repositories {
+            mavenCentral()
+            maven { url "https://maven.minecraftforge.net" }
+    }
+    dependencies {
+        classpath "net.minecraftforge.gradle:ForgeGradle:${forge_gradle_version}"
+    }
+}
+
+apply plugin: "net.minecraftforge.gradle.forge"
+//Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
+
+version = project.mod_version
+group = "mods.github.slashbladetweaker" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = "SlashBladeTweaker"
+
+sourceCompatibility = targetCompatibility = "1.8" // Need this here so eclipse task generates correctly.
+compileJava {
+    sourceCompatibility = targetCompatibility = "1.8"
+}
+
+minecraft {
+    version = "1.12.2-14.23.5.2847"
+    runDir = "run"
+    mappings = "snapshot_20171003"
+    makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
+}
+
+repositories {
+    maven {
+        name 'CurseMaven'
+        url 'https://cursemaven.com'
+    }
+    maven {
+        name 'Blamejared Maven'
+        url 'https://maven.blamejared.com/'
+    }
+    mavenCentral()
+}
+
+
+dependencies {
+    //compile 'com.cleanroommc:groovyscript:0.8.0'
+    compile 'CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.1.20.698'
+    compile files('libs/SlashBlade-mc1.12-r33.jar')
+}
+
+processResources {
+    // this will ensure that this task is redone when the versions change.
+    inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft.version
+
+    // replace stuff in mcmod.info, nothing else
+    from(sourceSets.main.resources.srcDirs) {
+        include "mcmod.info"
+
+        // replace version and mcversion
+        expand "version":project.version, "mcversion":project.minecraft.version
+    }
+
+    // copy everything else except the mcmod.info
+    from(sourceSets.main.resources.srcDirs) {
+        exclude "mcmod.info"
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+
+// Example for how to get properties into the manifest for reading by the runtime..
+jar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
