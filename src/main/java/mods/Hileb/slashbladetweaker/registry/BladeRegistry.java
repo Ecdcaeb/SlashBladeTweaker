@@ -32,6 +32,11 @@ public class BladeRegistry {
     }
 
     @ZenMethod
+    public static BladeTypeBuilder named(String name){
+        return BladeTypeBuilder.create(name);
+    }
+
+    @ZenMethod
     public static ItemStack getBladeItemStack(String name){
         return SlashBlade.getCustomBlade(name).copy();
     }

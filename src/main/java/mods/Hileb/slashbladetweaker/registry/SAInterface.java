@@ -1,8 +1,8 @@
 package mods.Hileb.slashbladetweaker.registry;
 
 import crafttweaker.annotations.ZenRegister;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
+import crafttweaker.api.item.IItemStack;
+import crafttweaker.api.player.IPlayer;
 import stanhebben.zenscript.annotations.ZenClass;
 
 /**
@@ -14,5 +14,5 @@ import stanhebben.zenscript.annotations.ZenClass;
 @ZenClass("mods.Hileb.slashbladetweaker.SAEffect")
 @FunctionalInterface
 public interface SAInterface {
-    void doSpacialAttack(ItemStack var1, EntityPlayer var2);
+    void doSpacialAttack(IItemStack s, IPlayer p);
 }
