@@ -41,9 +41,9 @@ repositories {
 
 
 dependencies {
-    //compile 'com.cleanroommc:groovyscript:0.8.0'
     compile 'CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.1.20.698'
     compile files('libs/SlashBlade-mc1.12-r33.jar')
+    compile files('libs/base-1.12.2-3.14.0.jar')
 }
 
 processResources {
