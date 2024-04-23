@@ -81,7 +81,17 @@ public class BladeTypeBuilder {
         return this;
     }
     @ZenMethod
-    public void register(){
+    public BuilderCallBack register(){
         BladeRegistry.register(impl);
+        return new BuilderCallBack();
+    }
+
+    @ZenRegister
+    @ZenClass("mods.Hileb.slashbladetweaker.BladeTypeBuilderCallBack")
+    public static class BuilderCallBack{
+        @ZenMethod
+        public BladeTypeBuilder named(String name){
+            return BladeRegistry.named(name);
+        }
     }
 }

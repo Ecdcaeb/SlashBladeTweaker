@@ -1,6 +1,9 @@
 package mods.Hileb.slashbladetweaker.registry;
 
 import crafttweaker.annotations.ZenRegister;
+import crafttweaker.api.item.IItemStack;
+import crafttweaker.api.minecraft.CraftTweakerMC;
+import crafttweaker.api.player.IPlayer;
 import mods.flammpfeil.slashblade.item.ItemSlashBlade;
 import mods.flammpfeil.slashblade.specialattack.SpecialAttackBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -24,9 +27,10 @@ public class SARegistry {
                 return name;
             }
 
+            @SuppressWarnings("unchecked")
             @Override
             public void doSpacialAttack(ItemStack itemStack, EntityPlayer entityPlayer) {
-                saInterface.doSpacialAttack(itemStack, entityPlayer);
+                saInterface.doSpacialAttack(CraftTweakerMC.getIItemStack(itemStack), CraftTweakerMC.getIPlayer(entityPlayer)); //TODO find out a good way avoid cast
             }
         });
     }
