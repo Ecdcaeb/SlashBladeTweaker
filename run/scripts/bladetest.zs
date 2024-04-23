@@ -5,6 +5,6 @@ mods.Hileb.slashbladetweaker.BladeRegistry
 .named("test_one").refine(1000).register()
 .named("test_two").refine(1000).register();
 
-mods.Hileb.slashbladetweaker.SARegistry.registerSA(20, "fancy_sa", function( p as crafttweaker.player.IPlayer, s as crafttweaker.item.IItemStack){
+mods.Hileb.slashbladetweaker.SARegistry.registerSA(20, "fancy_sa", function(s as crafttweaker.item.IItemStack,  p as crafttweaker.player.IPlayer){
     p.sendChat("sa used");
 });
