@@ -1,6 +1,7 @@
 package mods.Hileb.slashbladetweaker.registry;
 
 import crafttweaker.annotations.ZenRegister;
+import crafttweaker.api.item.IItemStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenProperty;
 
@@ -42,4 +43,14 @@ public class BladeType {
     public float baseAttackModifier = 4;
     @ZenProperty
     public int maxDamage = 14;
+
+    @ZenProperty
+    public BladeProcessor processor = null;
+
+    @ZenRegister
+    @ZenClass("mods.Hileb.slashbladetweaker.BladeProcessor")
+    @FunctionalInterface
+    public interface BladeProcessor{
+        IItemStack process(IItemStack stack);
+    }
 }

@@ -80,6 +80,12 @@ public class BladeTypeBuilder {
         impl.maxDamage=value;
         return this;
     }
+
+    @ZenMethod
+    public BladeTypeBuilder process(BladeType.BladeProcessor processor){
+        impl.processor = processor;
+        return this;
+    }
     @ZenMethod
     public BuilderCallBack register(){
         BladeRegistry.register(impl);

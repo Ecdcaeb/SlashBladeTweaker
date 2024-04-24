@@ -1,6 +1,8 @@
 package mods.Hileb.slashbladetweaker.registry;
 
+import crafttweaker.CraftTweakerAPI;
 import crafttweaker.annotations.ZenRegister;
+import crafttweaker.api.minecraft.CraftTweakerMC;
 import mods.flammpfeil.slashblade.ItemSlashBladeNamed;
 import mods.flammpfeil.slashblade.SlashBlade;
 import mods.flammpfeil.slashblade.item.ItemSlashBlade;
@@ -74,6 +76,8 @@ public class BladeRegistry {
 
             ItemSlashBlade.TextureName.set(tagCompound, type.texture);//贴图路径 .png
             ItemSlashBlade.ModelName.get(tagCompound, type.model);//模型路径 .obj
+
+            if (type.processor != null) return CraftTweakerMC.getItemStack(type.processor.process(CraftTweakerMC.getIItemStack(stack)));
         }catch (Exception exception){
 
         }
