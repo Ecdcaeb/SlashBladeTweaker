@@ -18,22 +18,18 @@ public class SEType implements mods.Hileb.slashbladetweaker.registry.ISpecialEff
     public int level;
     @ZenProperty
     public String name;
-    @ZenProperty
-    public RegisterHandler registerHandler;
-    public SEType(int level, String name, RegisterHandler registerHandler){
+    public SEType(int level, String name){
         this.name = name;
         this.level = level;
-        this.registerHandler = registerHandler;
     }
 
     @ZenMethod
-    public static SEType create(int level, String name, RegisterHandler registerHandler){
-        return new SEType(level, name, registerHandler);
+    public static SEType create(int level, String name){
+        return new SEType(level, name);
     }
 
     @Override
     public void register() {
-        this.registerHandler.register(this);
     }
 
     @Override
@@ -46,15 +42,4 @@ public class SEType implements mods.Hileb.slashbladetweaker.registry.ISpecialEff
         return name;
     }
 
-    @ZenMethod
-    static void addToBus(SEType seType) {
-        MinecraftForge.EVENT_BUS.register(seType);
-    }
-
-    @ZenRegister
-    @ZenClass("mods.Hileb.slashbladetweaker.SEType.RegisterHandler")
-    @FunctionalInterface
-    public interface RegisterHandler {
-        void register(SEType seType);
-    }
 }

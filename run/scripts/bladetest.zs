@@ -13,12 +13,7 @@ SARegistry.registerSA(20, "fancy_sa", function(s as IItemStack,  p as IPlayer){
     p.sendChat("sa used");
 });
 
-SERegistry.register(
-    SEType.create( 10, "test_se", function(s as SEType){
-             SEType.addToBus(s);
-        }
-    )
-);
+SERegistry.register(SEType.create( 10, "test_se"));
 
 BladeRegistry
 
