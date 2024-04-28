@@ -4,13 +4,12 @@
 import crafttweaker.item.IItemStack;
 import crafttweaker.player.IPlayer;
 
-import mods.Hileb.slashbladetweaker.SEType;
-import mods.Hileb.slashbladetweaker.BladeType;
-
-import mods.Hileb.slashbladetweaker.SARegistry;
-import mods.Hileb.slashbladetweaker.SERegistry;
-import mods.Hileb.slashbladetweaker.BladeRegistry;
-import mods.Hileb.slashbladetweaker.BladeRecipe;
+import mods.Hileb.slashbladetweaker.registry.SEType;
+import mods.Hileb.slashbladetweaker.registry.BladeType;
+import mods.Hileb.slashbladetweaker.registry.SARegistry;
+import mods.Hileb.slashbladetweaker.registry.SERegistry;
+import mods.Hileb.slashbladetweaker.registry.BladeRegistry;
+import mods.Hileb.slashbladetweaker.registry.BladeRecipe;
 
 SARegistry.registerSA(20, "fancy_sa", function(s as IItemStack,  p as IPlayer){
     p.sendChat("sa used");
