@@ -12,7 +12,7 @@ import stanhebben.zenscript.annotations.ZenMethod;
  * @Date 2024/4/23 23:17
  **/
 @ZenRegister
-@ZenClass("mods.Hileb.slashbladetweaker.ISE")
+@ZenClass("mods.Hileb.slashbladetweaker.registry.ISpecialEffect")
 public interface ISpecialEffect extends mods.flammpfeil.slashblade.specialeffect.ISpecialEffect {
     @ZenMethod
     default boolean match(IPlayer player){

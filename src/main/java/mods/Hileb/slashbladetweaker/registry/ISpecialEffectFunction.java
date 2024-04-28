@@ -11,8 +11,8 @@ import stanhebben.zenscript.annotations.ZenClass;
  * @Date 2024/4/23 13:27
  **/
 @ZenRegister
-@ZenClass("mods.Hileb.slashbladetweaker.SAEffect")
+@ZenClass("mods.Hileb.slashbladetweaker.registry.ISpecialEffectFunction")
 @FunctionalInterface
-public interface SAInterface {
+public interface ISpecialEffectFunction {
     void doSpacialAttack(IItemStack s, IPlayer p);
 }

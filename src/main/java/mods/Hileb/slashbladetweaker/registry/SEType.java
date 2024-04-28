@@ -1,7 +1,6 @@
 package mods.Hileb.slashbladetweaker.registry;
 
 import crafttweaker.annotations.ZenRegister;
-import net.minecraftforge.common.MinecraftForge;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import stanhebben.zenscript.annotations.ZenProperty;
@@ -12,7 +11,7 @@ import stanhebben.zenscript.annotations.ZenProperty;
  * @Date 2024/4/23 23:04
  **/
 @ZenRegister
-@ZenClass("mods.Hileb.slashbladetweaker.SEType")
+@ZenClass("mods.Hileb.slashbladetweaker.registry.SEType")
 public class SEType implements mods.Hileb.slashbladetweaker.registry.ISpecialEffect {
     @ZenProperty
     public int level;

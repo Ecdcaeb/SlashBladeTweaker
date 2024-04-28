@@ -1,9 +1,7 @@
 package mods.Hileb.slashbladetweaker.registry;
 
 import crafttweaker.annotations.ZenRegister;
-import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
-import crafttweaker.api.player.IPlayer;
 import mods.flammpfeil.slashblade.item.ItemSlashBlade;
 import mods.flammpfeil.slashblade.specialattack.SpecialAttackBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -17,10 +15,10 @@ import stanhebben.zenscript.annotations.ZenMethod;
  * @Date 2024/4/23 13:26
  **/
 @ZenRegister
-@ZenClass("mods.Hileb.slashbladetweaker.SARegistry")
+@ZenClass("mods.Hileb.slashbladetweaker.registry.SARegistry")
 public class SARegistry {
     @ZenMethod
-    public static void registerSA(int id, String name, SAInterface saInterface){
+    public static void registerSA(int id, String name, ISpecialEffectFunction ISpecialEffectFunction){
         ItemSlashBlade.specialAttacks.put(id, new SpecialAttackBase() {
             @Override
             public String toString() {
@@ -30,7 +28,7 @@ public class SARegistry {
             @SuppressWarnings("unchecked")
             @Override
             public void doSpacialAttack(ItemStack itemStack, EntityPlayer entityPlayer) {
-                saInterface.doSpacialAttack(CraftTweakerMC.getIItemStack(itemStack), CraftTweakerMC.getIPlayer(entityPlayer));
+                ISpecialEffectFunction.doSpacialAttack(CraftTweakerMC.getIItemStack(itemStack), CraftTweakerMC.getIPlayer(entityPlayer));
             }
         });
     }

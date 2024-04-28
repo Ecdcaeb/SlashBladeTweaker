@@ -1,9 +1,8 @@
 package mods.Hileb.slashbladetweaker;
 
 import crafttweaker.CraftTweakerAPI;
-import mods.Hileb.slashbladetweaker.registry.BladeRegistry;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 
 /**
  * @Project SlashBladeTweaker
@@ -27,9 +26,7 @@ public class SlashBladeTweaker{
     }
 
     @Mod.EventHandler
-    public void preInit(FMLPreInitializationEvent event){
+    public void preInit(FMLInitializationEvent event){
         CraftTweakerAPI.tweaker.loadScript(false, MODID);
-        BladeRegistry.registerAll();
-
     }
 }

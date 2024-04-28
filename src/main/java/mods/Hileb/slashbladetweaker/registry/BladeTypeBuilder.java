@@ -1,6 +1,7 @@
 package mods.Hileb.slashbladetweaker.registry;
 
 import crafttweaker.annotations.ZenRegister;
+import crafttweaker.api.item.IItemStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
@@ -10,7 +11,7 @@ import stanhebben.zenscript.annotations.ZenMethod;
  * @Date 2024/4/23 13:11
  **/
 @ZenRegister
-@ZenClass("mods.Hileb.slashbladetweaker.BladeTypeBuilder")
+@ZenClass("mods.Hileb.slashbladetweaker.registry.BladeTypeBuilder")
 public class BladeTypeBuilder {
     private final BladeType impl;
     public BladeTypeBuilder(String name){
@@ -86,14 +87,22 @@ public class BladeTypeBuilder {
         impl.processor = processor;
         return this;
     }
+
+    @ZenMethod
+    public BladeTypeBuilder wrap(IItemStack stack){
+        impl.wrapper = stack;
+        return this;
+    }
+
     @ZenMethod
     public BuilderCallBack register(){
         BladeRegistry.register(impl);
         return new BuilderCallBack();
     }
 
+
     @ZenRegister
-    @ZenClass("mods.Hileb.slashbladetweaker.BladeTypeBuilderCallBack")
+    @ZenClass("mods.Hileb.slashbladetweaker.registry.BladeTypeBuilder$BuilderCallBack")
     public static class BuilderCallBack{
         @ZenMethod
         public BladeTypeBuilder named(String name){
