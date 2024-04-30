@@ -23,10 +23,13 @@ import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
+import stanhebben.zenscript.annotations.NotNull;
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Map;
 
 /**
@@ -59,10 +62,10 @@ public class BladeRecipe {
         public RecipeAwakeBlade(String name, IIngredient[][] ingredients, IItemStack output, IItemStack requiredBlade, IRecipeFunction recipeFunction, IRecipeAction recipeAction, boolean isMirrored, boolean isHidden) {
             super(ingredients, output, recipeFunction, recipeAction, isMirrored, isHidden);
             this.requiredStateBlade = requiredBlade;
-            this.name = getCorrectName(name);
+            this.name = mapName(name);
             this.isMirror = isMirrored;
 
-            ResourceLocation rname = new ResourceLocation(this.name);
+            ResourceLocation rname = new ResourceLocation(getCorrectName(name));
             CraftingHelper.ShapedPrimer shapedPrimer = new CraftingHelper.ShapedPrimer();
             shapedPrimer.height = this.getRecipeHeight();
             shapedPrimer.width = this.getRecipeWidth();
@@ -72,6 +75,9 @@ public class BladeRecipe {
         }
         public static String getCorrectName(String rawName){
             return BladeUtils.getResourceLocationWithDefaultDomain(rawName, "crafttweaker");
+        }
+        public static String mapName(String rawName){
+            return rawName.replace(':','_');
         }
 
         @Override
@@ -85,23 +91,26 @@ public class BladeRecipe {
         }
 
         public static class Action extends MCRecipeManager.ActionBaseAddRecipe {
+            public final String name;
 
             public Action(String name, IItemStack output, IIngredient[][] ingredients, IItemStack requiredBlade, IRecipeFunction function, IRecipeAction action, boolean mirrored, boolean hidden) {
-                this.recipe = new RecipeAwakeBlade(getCorrectName(name), ingredients, output, requiredBlade, function, action, mirrored, hidden);
+                this.recipe = new RecipeAwakeBlade(name, ingredients, output, requiredBlade, function, action, mirrored, hidden);
+                this.name = name;
                 this.output = output;
                 this.isShaped = true;
                 if (recipe.hasTransformers())
                     MCRecipeManager.transformerRecipes.add(recipe);
                 if (recipe.hasRecipeAction())
                     MCRecipeManager.actionRecipes.add(recipe);
-                setName(getCorrectName(name));
+                setName(mapName(name));
             }
 
             @Override
             public void apply() {
-                ForgeRegistries.RECIPES.register(this.getRecipe().setRegistryName(new ResourceLocation(getCorrectName(this.recipe.getName()))));
+                ForgeRegistries.RECIPES.register(this.getRecipe().setRegistryName(new ResourceLocation(getCorrectName(this.name))));
             }
         }
+        @SuppressWarnings("all")
         public static class RawRecipeAwakeBlade extends ShapedOreRecipe{
 
             ItemStack requiredStateBlade;
@@ -111,13 +120,15 @@ public class BladeRecipe {
                 this.requiredStateBlade = (ItemStack) requiredStateBlade.getInternal();
             }
 
+            @SuppressWarnings({"rawtypes","unchecked"})
             int tagValueCompare(TagPropertyAccessor access, NBTTagCompound reqTag, NBTTagCompound srcTag){
                 return access.get(reqTag).compareTo(access.get(srcTag));
             }
 
             @Override
-            public boolean matches(InventoryCrafting inv, World world) {
+            public boolean matches(@Nonnull InventoryCrafting inv,@Nullable World world) {
 
+                @SuppressWarnings("all")
                 boolean result = super.matches(inv, world);
 
                 if(result && !requiredStateBlade.isEmpty()){
@@ -163,7 +174,7 @@ public class BladeRecipe {
             }
 
             @Override
-            public ItemStack getCraftingResult(InventoryCrafting var1) {
+            public ItemStack getCraftingResult(@Nonnull InventoryCrafting var1) {
                 ItemStack result = super.getCraftingResult(var1);
 
                 for(int idx = 0; idx < var1.getSizeInventory(); idx++){
@@ -173,7 +184,7 @@ public class BladeRecipe {
                             && curIs.hasTagCompound()){
 
                         NBTTagCompound oldTag = curIs.getTagCompound();
-                        oldTag = (NBTTagCompound)oldTag.copy();
+                        oldTag = oldTag.copy();
 
                         {
                             NBTTagCompound newTag;
@@ -197,7 +208,7 @@ public class BladeRecipe {
                         ItemSlashBlade.RepairCount.set(newTag, ItemSlashBlade.RepairCount.get(oldTag));
 
                         if(oldTag.hasUniqueId("Owner"))
-                            newTag.setUniqueId("Owner",oldTag.getUniqueId("Owner"));
+                            newTag.setUniqueId("Owner", oldTag.getUniqueId("Owner"));
 
                         if(oldTag.hasKey(ItemSlashBlade.adjustXStr))
                             newTag.setFloat(ItemSlashBlade.adjustXStr,oldTag.getFloat(ItemSlashBlade.adjustXStr));
@@ -213,26 +224,25 @@ public class BladeRecipe {
                             Map<Enchantment,Integer> oldItemEnchants = EnchantmentHelper.getEnchantments(curIs);
                             for(Enchantment enchantIndex : oldItemEnchants.keySet())
                             {
-                                Enchantment enchantment = enchantIndex;
 
-                                int destLevel = newItemEnchants.containsKey(enchantIndex) ? newItemEnchants.get(enchantIndex) : 0;
+                                int destLevel = newItemEnchants.getOrDefault(enchantIndex, 0);
                                 int srcLevel = oldItemEnchants.get(enchantIndex);
 
                                 srcLevel = Math.max(srcLevel, destLevel);
-                                srcLevel = Math.min(srcLevel, enchantment.getMaxLevel());
+                                srcLevel = Math.min(srcLevel, enchantIndex.getMaxLevel());
 
 
-                                boolean canApplyFlag = enchantment.canApply(result);
+                                boolean canApplyFlag = enchantIndex.canApply(result);
                                 if(canApplyFlag){
                                     for(Enchantment curEnchantIndex : newItemEnchants.keySet()){
-                                        if (curEnchantIndex != enchantIndex && !enchantment.isCompatibleWith(curEnchantIndex) /*canApplyTogether*/)
+                                        if (curEnchantIndex != enchantIndex && !enchantIndex.isCompatibleWith(curEnchantIndex) /*canApplyTogether*/)
                                         {
                                             canApplyFlag = false;
                                             break;
                                         }
                                     }
                                     if (canApplyFlag)
-                                        newItemEnchants.put(enchantIndex, Integer.valueOf(srcLevel));
+                                        newItemEnchants.put(enchantIndex, srcLevel);
                                 }
                             }
                             EnchantmentHelper.setEnchantments(newItemEnchants, result);
