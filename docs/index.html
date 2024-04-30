@@ -1,6 +1,5 @@
 <!DOCTYPE HTML>
 <html>
-//https://ecdcaeb.github.io/SlashBladeTweaker/
 <head>
     <meta http-equiv="Content-Language" content="en">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -15,59 +14,62 @@
 <p><a href="en_us/index.html">English(US)</a></p>
 
 <p></p>
-<code>
-    #debug
-#loader slashbladetweaker
-
-import crafttweaker.item.IItemStack;
-import crafttweaker.player.IPlayer;
-
-import mods.Hileb.slashbladetweaker.registry.SEType;
-import mods.Hileb.slashbladetweaker.registry.BladeType;
-import mods.Hileb.slashbladetweaker.registry.SARegistry;
-import mods.Hileb.slashbladetweaker.registry.SERegistry;
-import mods.Hileb.slashbladetweaker.registry.BladeRegistry;
-import mods.Hileb.slashbladetweaker.registry.BladeRecipe;
-
-SARegistry.registerSA(20, "fancy_sa", function(s as IItemStack,  p as IPlayer){
-    p.sendChat("sa used");
-});
-
-//SERegistry.register(SEType.create( 10, "test_se"));
-SEType.create( 10, "test_se").register();
-
-BladeRegistry
-.named("example:test_one")
-.killCount(10000).refine(1000).proudSoul(2600000)
-.texture("named/sange/white").model("named/sange/sange")
-.specialAttack(20)
-.wrap(BladeRegistry.findItem("minecraft:wooden_sword"))
-.process(function(s as crafttweaker.item.IItemStack){
-    SERegistry.addSEToItem(s, "test_se");
-    return s;
-})
-.register()
-
-.named("example:test_two").register();
-
-
-val required as IItemStack = BladeRegistry.getBladeItemStack("example:test_one");
-
-mods.Hileb.slashbladetweaker.utils.BladeUtils.setKillCount(required, 1000);
-
-BladeRecipe.addShaped("example:shaped",
-        BladeRegistry.getBladeItemStack("flammpfeil.slashblade.named.fox.white") , //Output
-        required, //required
-        [
-            [<ore:ingotIron>, <ore:ingotIron>, <ore:ingotIron>],
-            [<ore:ingotIron>, required, <ore:ingotIron>],
-            [<ore:ingotIron>, null, <ore:ingotIron>]
-        ]
-        //@Optional IRecipeFunction function
-        //@Optional IRecipeAction action
-);
-</code>
-
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>TestScript.zs </p>
+<p>&nbsp;</p>
+<code>#debug<br>
+#loader slashbladetweaker<br>
+<br>
+import crafttweaker.item.IItemStack;<br>
+import crafttweaker.player.IPlayer;<br>
+<br>
+import mods.Hileb.slashbladetweaker.registry.SEType;<br>
+import mods.Hileb.slashbladetweaker.registry.BladeType;<br>
+import mods.Hileb.slashbladetweaker.registry.SARegistry;<br>
+import mods.Hileb.slashbladetweaker.registry.SERegistry;<br>
+import mods.Hileb.slashbladetweaker.registry.BladeRegistry;<br>
+import mods.Hileb.slashbladetweaker.registry.BladeRecipe;<br>
+<br>
+SARegistry.registerSA(20, &quot;fancy_sa&quot;, function(s as IItemStack, p as IPlayer){<br>
+p.sendChat(&quot;sa used&quot;);<br>
+});<br>
+<br>
+//SERegistry.register(SEType.create( 10, &quot;test_se&quot;));<br>
+SEType.create( 10, &quot;test_se&quot;).register();<br>
+<br>
+BladeRegistry<br>
+.named(&quot;example:test_one&quot;)<br>
+.killCount(10000).refine(1000).proudSoul(2600000)<br>
+.texture(&quot;named/sange/white&quot;).model(&quot;named/sange/sange&quot;)<br>
+.specialAttack(20)<br>
+.wrap(BladeRegistry.findItem(&quot;minecraft:wooden_sword&quot;))<br>
+.process(function(s as crafttweaker.item.IItemStack){<br>
+SERegistry.addSEToItem(s, &quot;test_se&quot;);<br>
+return s;<br>
+})<br>
+.register()<br>
+<br>
+.named(&quot;example:test_two&quot;).register();<br>
+<br>
+<br>
+val required as IItemStack = 
+BladeRegistry.getBladeItemStack(&quot;example:test_one&quot;);<br>
+<br>
+mods.Hileb.slashbladetweaker.utils.BladeUtils.setKillCount(required, 1000);<br>
+<br>
+BladeRecipe.addShaped(&quot;example:shaped&quot;,<br>
+BladeRegistry.getBladeItemStack(&quot;flammpfeil.slashblade.named.fox.white&quot;) , 
+//Output<br>
+required, //required<br>
+[<br>
+[&lt;ore:ingotIron&gt;, &lt;ore:ingotIron&gt;, &lt;ore:ingotIron&gt;],<br>
+[&lt;ore:ingotIron&gt;, required, &lt;ore:ingotIron&gt;],<br>
+[&lt;ore:ingotIron&gt;, null, &lt;ore:ingotIron&gt;]<br>
+]<br>
+//@Optional IRecipeFunction function<br>
+//@Optional IRecipeAction action<br>
+);</code>
 </body>
 
 </html>
