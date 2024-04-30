@@ -29,7 +29,7 @@ BladeRegistry
 })
 .register()
 
-.named("test_two").register();
+.named("example:test_two").register();
 
 
 val required as IItemStack = BladeRegistry.getBladeItemStack("example:test_one");

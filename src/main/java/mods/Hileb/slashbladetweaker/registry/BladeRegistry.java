@@ -81,7 +81,7 @@ public class BladeRegistry {
 
 
                 ItemSlashBlade.TextureName.set(tagCompound, type.texture);//贴图路径 .png
-                ItemSlashBlade.ModelName.get(tagCompound, type.model);//模型路径 .obj
+                ItemSlashBlade.ModelName.set(tagCompound, type.model);//模型路径 .obj
 
                 if (type.processor != null) return CraftTweakerMC.getItemStack(type.processor.process(CraftTweakerMC.getIItemStack(stack)));
             }catch (Exception exception){
@@ -110,7 +110,7 @@ public class BladeRegistry {
 
 
             ItemSlashBlade.TextureName.set(tagCompound, type.texture);//贴图路径 .png
-            ItemSlashBlade.ModelName.get(tagCompound, type.model);//模型路径 .obj
+            ItemSlashBlade.ModelName.set(tagCompound, type.model);//模型路径 .obj
 
             if (type.processor != null) return CraftTweakerMC.getItemStack(type.processor.process(CraftTweakerMC.getIItemStack(customblade)));
             return customblade;

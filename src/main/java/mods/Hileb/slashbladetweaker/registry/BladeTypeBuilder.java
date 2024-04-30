@@ -38,17 +38,17 @@ public class BladeTypeBuilder {
     }
     @ZenMethod
     public BladeTypeBuilder model(String value){
-        impl.model=value;
+        impl.model = value;
         return this;
     }
     @ZenMethod
     public BladeTypeBuilder texture(String value){
-        impl.texture=value;
+        impl.texture = value;
         return this;
     }
     @ZenMethod
     public BladeTypeBuilder specialAttack(int specialAttackType){
-        impl.sa=specialAttackType;
+        impl.sa = specialAttackType;
         return this;
     }
     @ZenMethod
