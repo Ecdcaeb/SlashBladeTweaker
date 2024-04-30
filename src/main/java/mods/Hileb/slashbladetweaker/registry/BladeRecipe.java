@@ -38,6 +38,14 @@ import java.util.Map;
 @ZenClass("mods.Hileb.slashbladetweaker.registry.BladeRecipe")
 public class BladeRecipe {
 
+    /**
+     * @param name the name of recipe, could be a resourceLocation, if not , domain is crafttweaker
+     * @param output the output, usually blade
+     * @param required the blade required, you can add some additional condition if you like
+     * @param ingredients 2D recipe format
+     * @param function optional, function, like any other crt recipe
+     * @param action optional, action, like any other crt recipe
+     */
     @ZenMethod
     public static void addShaped(String name, IItemStack output, IItemStack required, IIngredient[][] ingredients, @Optional IRecipeFunction function, @Optional IRecipeAction action){
         MCRecipeManager.recipesToAdd.add(new RecipeAwakeBlade.Action(name, output, ingredients, required, function, action, false, false));

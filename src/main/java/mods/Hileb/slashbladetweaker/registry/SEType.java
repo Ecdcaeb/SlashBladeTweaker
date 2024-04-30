@@ -22,13 +22,25 @@ public class SEType implements mods.Hileb.slashbladetweaker.registry.ISpecialEff
         this.level = level;
     }
 
+    /**
+     * @param level the level that se required for default
+     * @param name the register name,
+     *             the translation key is "slashblade.seffect.name.%NAME%"
+     *
+     * @return the created SEType
+     */
     @ZenMethod
     public static SEType create(int level, String name){
         return new SEType(level, name);
     }
 
+    /**
+     * register the se
+     */
     @Override
+    @ZenMethod
     public void register() {
+        SERegistry.register(this);
     }
 
     @Override

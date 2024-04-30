@@ -14,6 +14,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
+import javax.annotation.Nullable;
 import java.util.HashMap;
 
 /**
@@ -26,28 +27,53 @@ import java.util.HashMap;
 public class BladeRegistry {
     public static final HashMap<String, BladeType> BLADES = new HashMap<>();
 
+    /**
+     * @param name register name, could be a resourceLocation or default domain "flammpfeil.slashblade"
+     * @param type BladeType
+     */
     @ZenMethod
     public static void register(String name, BladeType type){
         BLADES.put(name, type);
         registerStack(type);
     }
 
+    /**
+     * @param type BladeType
+     */
     @ZenMethod
     public static void register(BladeType type){
         register(type.name, type);
         registerStack(type);
     }
 
+    /**
+     * @param name the register name
+     *
+     * @return the Builder
+     */
     @ZenMethod
     public static BladeTypeBuilder named(String name){
         return BladeTypeBuilder.create(name);
     }
 
+    /**
+     * @param name the register name
+     *
+     * @return the blade IItemStack
+     * null if blade not registered
+     */
+    @Nullable
     @ZenMethod
     public static IItemStack getBladeItemStack(String name){
         return CraftTweakerMC.getIItemStack(SlashBlade.getCustomBlade(name).copy());
     }
 
+    /**
+     * @param name the register name for a common item
+     *
+     * @return the IItemStack
+     * null if not found
+     */
     @ZenMethod
     public static IItemStack findItem(String name){
         return CraftTweakerMC.getIItemStack(new ItemStack(Item.getByNameOrId(name)));

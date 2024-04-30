@@ -1,6 +1,9 @@
 package mods.Hileb.slashbladetweaker.registry;
 
 import crafttweaker.annotations.ZenRegister;
+import crafttweaker.api.item.IItemStack;
+import crafttweaker.api.minecraft.CraftTweakerMC;
+import net.minecraft.item.ItemStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenProperty;
 
@@ -10,7 +13,7 @@ import stanhebben.zenscript.annotations.ZenProperty;
  * @Date 2024/4/23 13:00
  **/
 @ZenRegister
-@ZenClass("mods.Hileb.slashbladetweaker.BladeType")
+@ZenClass("mods.Hileb.slashbladetweaker.registry.BladeType")
 public class BladeType {
 
     public BladeType(String name){
@@ -42,4 +45,25 @@ public class BladeType {
     public float baseAttackModifier = 4;
     @ZenProperty
     public int maxDamage = 14;
+
+    @ZenProperty
+    public BladeProcessor processor = null;
+
+    @ZenProperty
+    public IItemStack wrapper = CraftTweakerMC.getIItemStack(ItemStack.EMPTY);
+
+    /**
+     * The function after basic information is built.
+     * You can add Enchantments, SE, or other process before it real build and register.
+     */
+    @ZenRegister
+    @ZenClass("mods.Hileb.slashbladetweaker.BladeProcessor")
+    @FunctionalInterface
+    public interface BladeProcessor{
+        IItemStack process(IItemStack stack);
+    }
+
+
+
+
 }

@@ -1,6 +1,7 @@
 package mods.Hileb.slashbladetweaker.registry;
 
 import crafttweaker.annotations.ZenRegister;
+import crafttweaker.api.item.IItemStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
@@ -8,18 +9,27 @@ import stanhebben.zenscript.annotations.ZenMethod;
  * @Project SlashBladeTweaker
  * @Author Hileb
  * @Date 2024/4/23 13:11
+ *
+ * Build Blade in chain
  **/
 @ZenRegister
-@ZenClass("mods.Hileb.slashbladetweaker.BladeTypeBuilder")
+@ZenClass("mods.Hileb.slashbladetweaker.registry.BladeTypeBuilder")
 public class BladeTypeBuilder {
     private final BladeType impl;
     public BladeTypeBuilder(String name){
         impl = new BladeType(name);
     }
+
+    /**
+     * @param name register name
+     *
+     * @return the Builder
+     */
     @ZenMethod
     public static BladeTypeBuilder create(String name){
         return new BladeTypeBuilder(name);
     }
+
     @ZenMethod
     public BladeTypeBuilder killCount(int value){
         impl.killCount=value;
@@ -37,17 +47,17 @@ public class BladeTypeBuilder {
     }
     @ZenMethod
     public BladeTypeBuilder model(String value){
-        impl.model=value;
+        impl.model = value;
         return this;
     }
     @ZenMethod
     public BladeTypeBuilder texture(String value){
-        impl.texture=value;
+        impl.texture = value;
         return this;
     }
     @ZenMethod
     public BladeTypeBuilder specialAttack(int specialAttackType){
-        impl.sa=specialAttackType;
+        impl.sa = specialAttackType;
         return this;
     }
     @ZenMethod
@@ -80,14 +90,39 @@ public class BladeTypeBuilder {
         impl.maxDamage=value;
         return this;
     }
+
+    @ZenMethod
+    public BladeTypeBuilder process(BladeType.BladeProcessor processor){
+        impl.processor = processor;
+        return this;
+    }
+
+    /**
+     * Make a blade become a wrapper, for example, white-fox wrap a wooden sword
+     * @param stack The item
+     *
+     * @return the Builder
+     */
+    @ZenMethod
+    public BladeTypeBuilder wrap(IItemStack stack){
+        impl.wrapper = stack;
+        return this;
+    }
+
+    /**
+     * Build and register the Type into Registry
+     * @return a callback, enable you to have a next building
+     * you can call a named directly.
+     */
     @ZenMethod
     public BuilderCallBack register(){
         BladeRegistry.register(impl);
         return new BuilderCallBack();
     }
 
+
     @ZenRegister
-    @ZenClass("mods.Hileb.slashbladetweaker.BladeTypeBuilderCallBack")
+    @ZenClass("mods.Hileb.slashbladetweaker.registry.BladeTypeBuilder$BuilderCallBack")
     public static class BuilderCallBack{
         @ZenMethod
         public BladeTypeBuilder named(String name){

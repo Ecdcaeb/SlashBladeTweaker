@@ -14,12 +14,20 @@ import stanhebben.zenscript.annotations.ZenMethod;
 @ZenRegister
 @ZenClass("mods.Hileb.slashbladetweaker.registry.ISpecialEffect")
 public interface ISpecialEffect extends mods.flammpfeil.slashblade.specialeffect.ISpecialEffect {
+    /**
+     * @param player the player
+     *
+     * @return if player have enough level for SpecialEffect
+     *
+     * useless
+     */
     @ZenMethod
     default boolean match(IPlayer player){
         return CraftTweakerMC.getPlayer(player).experienceLevel >= this.getDefaultRequiredLevel();
     }
 
     static ISpecialEffect get(mods.flammpfeil.slashblade.specialeffect.ISpecialEffect effect){
+        if (effect == null) return null;
         if (effect instanceof  ISpecialEffect) return (ISpecialEffect) effect;
         else return new ISpecialEffect() {@Override public void register() {effect.register();}@Override public int getDefaultRequiredLevel() {return effect.getDefaultRequiredLevel();}@Override public String getEffectKey() {return effect.getEffectKey();}}; // warp
     }

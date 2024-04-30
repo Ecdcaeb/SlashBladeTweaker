@@ -52,6 +52,10 @@ public class BladeType {
     @ZenProperty
     public IItemStack wrapper = CraftTweakerMC.getIItemStack(ItemStack.EMPTY);
 
+    /**
+     * The function after basic information is built.
+     * You can add Enchantments, SE, or other process before it real build and register.
+     */
     @ZenRegister
     @ZenClass("mods.Hileb.slashbladetweaker.BladeProcessor")
     @FunctionalInterface

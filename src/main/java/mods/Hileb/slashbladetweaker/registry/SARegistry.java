@@ -17,8 +17,14 @@ import stanhebben.zenscript.annotations.ZenMethod;
 @ZenRegister
 @ZenClass("mods.Hileb.slashbladetweaker.registry.SARegistry")
 public class SARegistry {
+    /**
+     * @param id the number id for identical, if two sa have same id, later one will replace the earlier one.
+     * @param name the name, used for display,
+     *             the translation key is "flammpfeil.slashblade.specialattack.%NAME%"
+     * @param ISpecialEffectFunction the function of sa
+     */
     @ZenMethod
-    public static void registerSA(int id, String name, ISpecialEffectFunction ISpecialEffectFunction){
+    public static void registerSA(int id, String name, ISpecialAttackFunction ISpecialEffectFunction){
         ItemSlashBlade.specialAttacks.put(id, new SpecialAttackBase() {
             @Override
             public String toString() {

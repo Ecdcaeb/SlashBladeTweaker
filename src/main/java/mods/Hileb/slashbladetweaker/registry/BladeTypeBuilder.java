@@ -9,6 +9,8 @@ import stanhebben.zenscript.annotations.ZenMethod;
  * @Project SlashBladeTweaker
  * @Author Hileb
  * @Date 2024/4/23 13:11
+ *
+ * Build Blade in chain
  **/
 @ZenRegister
 @ZenClass("mods.Hileb.slashbladetweaker.registry.BladeTypeBuilder")
@@ -17,10 +19,17 @@ public class BladeTypeBuilder {
     public BladeTypeBuilder(String name){
         impl = new BladeType(name);
     }
+
+    /**
+     * @param name register name
+     *
+     * @return the Builder
+     */
     @ZenMethod
     public static BladeTypeBuilder create(String name){
         return new BladeTypeBuilder(name);
     }
+
     @ZenMethod
     public BladeTypeBuilder killCount(int value){
         impl.killCount=value;
@@ -88,12 +97,23 @@ public class BladeTypeBuilder {
         return this;
     }
 
+    /**
+     * Make a blade become a wrapper, for example, white-fox wrap a wooden sword
+     * @param stack The item
+     *
+     * @return the Builder
+     */
     @ZenMethod
     public BladeTypeBuilder wrap(IItemStack stack){
         impl.wrapper = stack;
         return this;
     }
 
+    /**
+     * Build and register the Type into Registry
+     * @return a callback, enable you to have a next building
+     * you can call a named directly.
+     */
     @ZenMethod
     public BuilderCallBack register(){
         BladeRegistry.register(impl);
