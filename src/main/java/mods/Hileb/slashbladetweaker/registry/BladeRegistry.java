@@ -47,6 +47,23 @@ public class BladeRegistry {
     }
 
     /**
+     * re-register a blade, you could replace it or modifier it.
+     * A example here
+     * <code>
+     *     val blade as IItemStack = BladeRegistry.getBladeItemStack("flammpfeil.slashblade.named.fox.white");
+     *     BladeUtils.setKillCount(blade, 114514);
+     *     BladeRegistry.reregister("flammpfeil.slashblade.named.fox.white", blade);
+     * </code>
+     * then, the default killcount for white fox is 114514 now.
+     *
+     * @param name the register name
+     * @param stack the blade
+     */
+    @ZenMethod
+    public static void reregister(String name, IItemStack stack){
+        SlashBlade.BladeRegistry.put(new ResourceLocationRaw(BladeUtils.getResourceLocationWithDefaultDomain(name, "flammpfeil.slashblade")), CraftTweakerMC.getItemStack(stack));
+    }
+    /**
      * @param name the register name
      *
      * @return the Builder

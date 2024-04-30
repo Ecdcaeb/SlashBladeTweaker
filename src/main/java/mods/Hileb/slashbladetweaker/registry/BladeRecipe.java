@@ -33,9 +33,9 @@ import javax.annotation.Nullable;
 import java.util.Map;
 
 /**
- * @Project SlashBladeTweaker
- * @Author Hileb
- * @Date 2024/4/26 12:04
+ * @project SlashBladeTweaker
+ * @author  Hileb
+ * @date 2024/4/26 12:04
  **/
 @ZenRegister
 @ZenClass("mods.Hileb.slashbladetweaker.registry.BladeRecipe")
