@@ -3,9 +3,11 @@ package mods.Hileb.slashbladetweaker.registry;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
+import mods.Hileb.slashbladetweaker.utils.BladeUtils;
 import mods.flammpfeil.slashblade.ItemSlashBladeNamed;
 import mods.flammpfeil.slashblade.SlashBlade;
 import mods.flammpfeil.slashblade.item.ItemSlashBlade;
+import mods.flammpfeil.slashblade.util.ResourceLocationRaw;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -54,12 +56,11 @@ public class BladeRegistry {
     public static void registerStack(BladeType type){
         ItemStack blade = createBlade(type);
         ItemSlashBladeNamed.NamedBlades.add(type.name);//添加刀，进入物品栏。
-        SlashBlade.registerCustomItemStack(type.name, blade);//注册刀
-
+        SlashBlade.BladeRegistry.put(new ResourceLocationRaw(BladeUtils.getResourceLocationWithDefaultDomain(type.name, "flammpfeil.slashblade")), blade);
     }
 
     public static ItemStack createBlade(BladeType type){
-        if (!type.wrapper.isEmpty()){
+        if ((!(type.wrapper==null)) && (!type.wrapper.isEmpty())){
             ItemStack stack = new ItemStack(SlashBlade.bladeNamed);//新建刀Stack
             try {
                 NBTTagCompound tagCompound = new NBTTagCompound();//新建NBT
@@ -115,4 +116,5 @@ public class BladeRegistry {
             return customblade;
         }
     }
+
 }

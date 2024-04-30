@@ -3,14 +3,11 @@ package mods.Hileb.slashbladetweaker.registry;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
-import crafttweaker.api.minecraft.CraftTweakerMC;
-import crafttweaker.api.player.IPlayer;
-import crafttweaker.api.recipes.ICraftingInventory;
-import crafttweaker.api.recipes.ICraftingRecipe;
 import crafttweaker.api.recipes.IRecipeAction;
 import crafttweaker.api.recipes.IRecipeFunction;
 import crafttweaker.mc1120.recipes.MCRecipeManager;
 import crafttweaker.mc1120.recipes.MCRecipeShaped;
+import mods.Hileb.slashbladetweaker.utils.BladeUtils;
 import mods.flammpfeil.slashblade.ItemSlashBladeNamed;
 import mods.flammpfeil.slashblade.SlashBlade;
 import mods.flammpfeil.slashblade.TagPropertyAccessor;
@@ -19,9 +16,7 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.crafting.CraftingHelper;
@@ -68,7 +63,7 @@ public class BladeRecipe {
             this.recipeAwakeBlade  = new RawRecipeAwakeBlade(rname, this.getRecipeOutput(), this.requiredStateBlade, shapedPrimer);
         }
         public static String getCorrectName(String rawName){
-            return rawName.contains(":") ? rawName : "crafttweaker:" + rawName;
+            return BladeUtils.getResourceLocationWithDefaultDomain(rawName, "crafttweaker");
         }
 
         @Override

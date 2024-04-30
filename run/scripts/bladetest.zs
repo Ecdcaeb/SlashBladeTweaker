@@ -24,7 +24,7 @@ BladeRegistry
 .specialAttack(20)
 .wrap(BladeRegistry.findItem("minecraft:wooden_sword"))
 .process(function(s as crafttweaker.item.IItemStack){
-    mods.Hileb.slashbladetweaker.SERegistry.addSEToItem(s, "test_se");
+    SERegistry.addSEToItem(s, "test_se");
     return s;
 })
 .register()
@@ -32,9 +32,9 @@ BladeRegistry
 .named("test_two").register();
 
 
-val required as IItemStack =  BladeRegistry.getBladeItemStack("example:test_one");
+val required as IItemStack = BladeRegistry.getBladeItemStack("example:test_one");
 
-BladeType.setKillCount(required, 1000);
+mods.Hileb.slashbladetweaker.utils.BladeUtils.setKillCount(required, 1000);
 
 BladeRecipe.addShaped("example:shaped",
         BladeRegistry.getBladeItemStack("flammpfeil.slashblade.named.fox.white") , //Output

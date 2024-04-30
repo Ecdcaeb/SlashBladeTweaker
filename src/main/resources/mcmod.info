@@ -9,7 +9,7 @@
   "updateUrl": "",
   "authorList": ["Hileb"],
   "credits": "Idealland - they provided this framework environment.",
-  "logoFile": "",
+  "logoFile": "assets/slashbladetweaker/icon.png",
   "screenshots": [],
   "dependencies": []
 }
